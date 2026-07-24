@@ -1,12 +1,15 @@
 :root {
-    --primary: #1f2937;
-    --primary-dark: #111827;
+    --primary: #243238;
+    --primary-dark: #162126;
     --accent: #5c7c78;
+    --accent-strong: #47625f;
     --text: #243238;
     --muted: #5f6f7a;
     --surface: #f8f4ee;
     --bg: #f8f4ee;
-    --border: #d9d1c5;
+    --border: #d6cbbd;
+    --input-bg: #fcfaf7;
+    --shadow: rgba(36, 50, 56, 0.12);
 }
 
 * {
@@ -263,6 +266,51 @@ h1 {
 .form-card,
 .preview-card {
     padding: 1.4rem;
+    background: linear-gradient(135deg, #fdf9f3 0%, #eef4f1 100%);
+    border: 1px solid rgba(92, 124, 120, 0.16);
+    box-shadow: 0 14px 36px var(--shadow);
+}
+
+.form-card {
+    border-top: 4px solid var(--accent);
+}
+
+.preview-card {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.preview-card__content ul {
+    padding-left: 1rem;
+    margin: 0.6rem 0 0;
+    color: var(--muted);
+}
+
+.preview-tip {
+    padding: 1rem 1.1rem;
+    border-radius: 14px;
+    background: rgba(92, 124, 120, 0.12);
+    border: 1px solid rgba(92, 124, 120, 0.2);
+}
+
+.preview-tip__eyebrow {
+    margin: 0 0 0.3rem;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--accent);
+}
+
+.preview-tip h4 {
+    margin: 0 0 0.35rem;
+    color: var(--primary);
+}
+
+.preview-tip p {
+    margin: 0;
+    color: var(--muted);
 }
 
 .blog-form {
@@ -276,17 +324,28 @@ h1 {
 }
 
 label {
-    font-weight: 600;
+    font-weight: 700;
+    color: var(--primary);
 }
 
 input,
 textarea {
     width: 100%;
-    border: 1px solid var(--border);
+    border: 1px solid rgba(92, 124, 120, 0.24);
     border-radius: 12px;
-    padding: 0.8rem 0.95rem;
+    padding: 0.85rem 0.95rem;
     font: inherit;
-    background: var(--bg);
+    background: var(--input-bg);
+    color: var(--text);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+input:focus,
+textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 4px rgba(92, 124, 120, 0.16);
+    transform: translateY(-1px);
 }
 
 textarea {
@@ -297,6 +356,12 @@ textarea {
 .full {
     width: 100%;
     border: none;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-strong) 100%);
+    color: white;
+    box-shadow: 0 10px 20px rgba(92, 124, 120, 0.2);
 }
 
 .footer {
