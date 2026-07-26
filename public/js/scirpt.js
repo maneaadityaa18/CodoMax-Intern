@@ -1,6 +1,6 @@
 async function getPosts() {
     try {
-        const response = await fetch("/blogs");
+        const response = await fetch("/api/blogs");
         return await response.json();
     } catch (error) {
         console.error(error);
@@ -97,7 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         try {
-            const response = await fetch("/blogs", {
+            const response = await fetch("/api/blogs", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
