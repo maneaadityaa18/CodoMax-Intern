@@ -220,6 +220,72 @@ h1 {
     padding: 1.25rem;
 }
 
+.read-more-btn {
+    margin-top: 0.75rem;
+    background: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    font: inherit;
+}
+
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.62);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+
+.modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-box {
+    /* Modal box width: min(90vw, 720px); */
+    width: min(90vw, 720px);
+    /* Modal box height: min(80vh, 620px); */
+    max-height: min(80vh, 620px);
+    overflow-y: auto;
+    background: #ffffff;
+    border-radius: 24px;
+    padding: 1.6rem;
+    box-shadow: 0 24px 60px rgba(15, 23, 42, 0.25);
+    transform: translateY(14px);
+    opacity: 0;
+    transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+.modal-overlay.active .modal-box {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.modal-close {
+    position: absolute;
+    top: 0.8rem;
+    right: 0.9rem;
+    border: none;
+    background: transparent;
+    font-size: 1.4rem;
+    cursor: pointer;
+    color: var(--muted);
+}
+
+.modal-body {
+    margin-top: 1rem;
+    color: var(--muted);
+    line-height: 1.8;
+    white-space: pre-line;
+}
+
 .card-badge {
     display: inline-block;
     margin-bottom: 0.5rem;
@@ -247,9 +313,9 @@ h1 {
 
 .mini-panel {
     padding: 1.25rem;
-    background: white;
     border: 1px solid var(--border);
     border-radius: 20px;
+    background: rgba(92, 124, 120, 0.12);
 }
 
 .page-shell {
