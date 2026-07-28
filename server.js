@@ -31,6 +31,16 @@ app.get("/add-blog", (req, res) => {
     res.sendFile(path.join(__dirname, "add-blog.html"));
 });
 
+// API: Get a single blog (JSON)
+app.get('/api/blogs/:id', (req, res) => {
+    Blog.findById(req.params.id)
+        .then(blog => {
+            if (!blog) return res.status(404).json({ error: 'Blog not found' });
+            res.json(blog);
+        })
+        .catch(err => res.status(500).json({ error: 'Failed to fetch blog', details: err.message }));
+});
+
 // API: Get all blogs (JSON)
 app.get('/api/blogs', (req, res) => {
     Blog.find().sort({ createdAt: -1 })
@@ -51,14 +61,36 @@ app.post('/api/blogs', (req, res) => {
         .catch(err => res.status(400).json({ error: 'Failed to create blog', details: err.message }));
 });
 
-// Get All Blogs API
+// API: Update a blog (JSON)
+app.put('/api/blogs/:id', (req, res) => {
+    const { title, author, category, content } = req.body;
+
+    Blog.findByIdAndUpdate(req.params.id, { title, author, category, content }, { new: true })
+        .then(blog => {
+            if (!blog) return res.status(404).json({ error: 'Blog not found' });
+            res.json({ message: 'Blog Updated Successfully', blog });
+        })
+        .catch(err => res.status(400).json({ error: 'Failed to update blog', details: err.message }));
+});
+
+// API: Delete a blog (JSON)
+app.delete('/api/blogs/:id', (req, res) => {
+    Blog.findByIdAndDelete(req.params.id)
+        .then(blog => {
+            if (!blog) return res.status(404).json({ error: 'Blog not found' });
+            res.json({ message: 'Blog Deleted Successfully' });
+        })
+        .catch(err => res.status(500).json({ error: 'Failed to delete blog', details: err.message }));
+});
+
+
+
 app.get("/blogs", (req, res) => {
     Blog.find().sort({ createdAt: -1 })
         .then(blogs => res.json(blogs))
         .catch(err => res.status(500).json({ error: 'Failed to fetch blogs', details: err.message }));
 });
 
-// Add Blog API
 app.post("/blogs", (req, res) => {
 
     const { title, author, category, content } = req.body;

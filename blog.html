@@ -7,15 +7,40 @@
     <link rel="stylesheet" href="/public/css/style.css">
 </head>
 <body>
-    <header class="topbar">
+        <header class="topbar">
         <nav class="navbar container">
-            <a href="index.html" class="logo"> BlogHub</a>
-            <div class="nav-links">
-                <a href="index.html">Home</a>
-                <a href="blog.html" class="active">Create Blog</a>
+            <a href="index.html" class="logo">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
+                BlogHub
+            </a>
+            
+            <div class="nav-right">
+                <div class="nav-links" id="navLinks">
+                    <a href="index.html">Home</a>
+                    <a href="index.html#latest">Blogs</a>
+                    <a href="blog.html" class="active">Add Blog</a>
+                    <a href="#">Profile</a>
+                </div>
+
+                <div class="profile-container">
+                    <div class="profile-trigger" id="profileTrigger">A</div>
+                    <div class="profile-dropdown" id="profileDropdown">
+                        <a href="#">My Profile</a>
+                        <a href="#">My Blogs</a>
+                        <hr style="border: 0; border-top: 1px solid #eee; margin: 5px 0;">
+                        <a href="#" style="color: #e74c3c;">Logout</a>
+                    </div>
+                </div>
+
+                <div class="menu-toggle" id="mobileMenuBtn">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
             </div>
         </nav>
     </header>
+
 
     <main class="page-shell">
         <section class="container form-section">
