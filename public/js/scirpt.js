@@ -1,11 +1,28 @@
-async function getPosts() {
+async function getPosts(limit = null) {
     try {
-        const response = await fetch("/api/blogs");
+        const url = limit ? `/api/blogs?limit=${encodeURIComponent(limit)}` : "/api/blogs";
+        const response = await fetch(url);
         return await response.json();
     } catch (error) {
         console.error(error);
         return [];
     }
+}
+
+function formatPostDate(createdAt) {
+    const date = new Date(createdAt);
+
+    if (Number.isNaN(date.getTime())) {
+        return 'Recently published';
+    }
+
+    return date.toLocaleString('en', {
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric',
+        hour: 'numeric',
+        minute: '2-digit'
+    });
 }
 
 function escapeHtml(text) {
@@ -18,28 +35,27 @@ function escapeHtml(text) {
 }
 
 async function renderPosts() {
-    const blogCards = document.getElementById('blogCards');
+    const blogCardsContainer = document.getElementById('blogCards') || document.getElementById('allBlogCards');
 
-    if (!blogCards) return;
+    if (!blogCardsContainer) return;
 
-    const posts = await getPosts();
+    const limit = Number(blogCardsContainer.dataset.limit || 0);
+    const posts = await getPosts(limit > 0 ? limit : null);
+    const visiblePosts = limit > 0 ? posts.slice(0, limit) : posts;
 
-    if (!posts.length) {
-        blogCards.innerHTML = '<div class="empty-state">No blogs yet. Be the first to publish one.</div>';
+    if (!visiblePosts.length) {
+        blogCardsContainer.innerHTML = '<div class="empty-state">No blogs yet. Be the first to publish one.</div>';
         return;
     }
 
-    blogCards.innerHTML = posts.map((post) => {
-        const date = new Date(post.createdAt).toLocaleDateString('en', {
-            month: 'short',
-            day: 'numeric',
-            year: 'numeric'
-        });
+    blogCardsContainer.innerHTML = visiblePosts.map((post) => {
+        const date = formatPostDate(post.createdAt);
 
         const title = escapeHtml(post.title || 'Untitled Blog');
         const author = escapeHtml(post.author || 'Anonymous');
         const category = escapeHtml(post.category || 'New');
         const content = escapeHtml(post.content || 'No content available yet.');
+        const safeDate = escapeHtml(date);
 
         return `
             <article class="card" data-blog-id="${post._id || ''}">
@@ -54,14 +70,14 @@ async function renderPosts() {
                     </div>
                 </div>
                 <h3>${title}</h3>
-                <p class="author">By ${author} • ${escapeHtml(date)}</p>
-                <p>${content}</p>
+                <p class="author">By ${author} • ${safeDate}</p>
+                <p class="card-text">${content}</p>
                 <button
                     type="button"
                     class="text-link read-more-btn"
                     data-title="${title}"
                     data-author="${author}"
-                    data-date="${escapeHtml(date)}"
+                    data-date="${safeDate}"
                     data-category="${category}"
                     data-content="${content}"
                 >
@@ -127,8 +143,7 @@ async function handleCardMenuAction(button) {
     const title = card?.querySelector('h3')?.textContent?.trim() || 'Blog';
 
     if (action === 'edit') {
-        // Redirect to blog.html with the blog ID to enter Edit Mode
-        window.location.href = `blog.html?editId=${blogId}`;
+        window.location.href = `addblog.html?editId=${blogId}`;
     } else if (action === 'delete') {
         // Ask for confirmation before deleting
         if (confirm(`Are you sure you want to delete "${title}"?`)) {
@@ -180,8 +195,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Navigation & UI Elements
     const mobileMenuBtn = document.getElementById('mobileMenuBtn');
     const navLinks = document.getElementById('navLinks');
-    const profileTrigger = document.getElementById('profileTrigger');
-    const profileDropdown = document.getElementById('profileDropdown');
 
     // Mobile Menu Toggle
     if (mobileMenuBtn) {
@@ -191,7 +204,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
     }
 
-    // Profile Dropdown Toggle
+    /*Profile Dropdown Toggle
     if (profileTrigger) {
         profileTrigger.addEventListener('click', (e) => {
             e.stopPropagation();
@@ -199,7 +212,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
     }
 
-    // Close dropdowns/menus when clicking outside
+    // Close dropdowns/menus when clicking outside*
     document.addEventListener('click', (e) => {
         if (profileDropdown && !profileDropdown.contains(e.target) && e.target !== profileTrigger) {
             profileDropdown.classList.remove('show');
@@ -208,10 +221,11 @@ document.addEventListener('DOMContentLoaded', async () => {
             mobileMenuBtn.classList.remove('active');
             navLinks.classList.remove('active');
         }
-    });
+    });*/
 
     // ... existing initialization logic ...
     const blogCards = document.getElementById('blogCards');
+    const allBlogCards = document.getElementById('allBlogCards');
 
     const form = document.getElementById('blogForm');
     
@@ -219,10 +233,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     const urlParams = new URLSearchParams(window.location.search);
     const editId = urlParams.get('editId');
 
-    if (blogCards) {
+    if (blogCards || allBlogCards) {
+        
         renderPosts();
         
-        blogCards.addEventListener('click', (event) => {
+        const cardsContainer = blogCards || allBlogCards;
+        cardsContainer.addEventListener('click', (event) => {
             const toggleButton = event.target.closest('.card-menu-toggle');
             const menuAction = event.target.closest('.card-menu-item');
             const readMoreButton = event.target.closest('.read-more-btn');
@@ -275,17 +291,22 @@ document.addEventListener('DOMContentLoaded', async () => {
             const response = await fetch(`/api/blogs/${editId}`);
             if (response.ok) {
                 const blog = await response.json();
-                
-                // Fill all fields with current blog data
+
                 document.getElementById('title').value = blog.title;
                 document.getElementById('author').value = blog.author;
                 document.getElementById('category').value = blog.category;
                 document.getElementById('content').value = blog.content;
-                
-                // Change UI for Edit Mode
-                form.querySelector('h1').textContent = "Edit Your Story";
-                form.querySelector('.btn-primary').textContent = "Update Story";
-                document.querySelector('.form-intro h1').textContent = "Edit Your Story";
+
+                const formHeading = document.querySelector('.form-intro h1');
+                const submitButton = form.querySelector('button[type="submit"]');
+
+                if (formHeading) {
+                    formHeading.textContent = "Edit Your Story";
+                }
+
+                if (submitButton) {
+                    submitButton.textContent = "Update Story";
+                }
             }
         } catch (error) {
             console.error("Error fetching blog for edit:", error);
@@ -351,4 +372,22 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
         });
     }
+});
+const textObserver = new IntersectionObserver(
+    (entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add("show");
+                textObserver.unobserve(entry.target);
+            }
+        });
+    },
+    {
+        threshold: 0.2,
+        rootMargin: "-50px"
+    }
+);
+
+document.querySelectorAll(".blur-fade").forEach((element) => {
+    textObserver.observe(element);
 });

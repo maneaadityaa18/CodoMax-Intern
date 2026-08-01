@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PostHub | Home</title>
+    <title>PostHub | Create Blog</title>
     <link rel="stylesheet" href="/public/css/style.css">
 </head>
 <body>
@@ -16,94 +16,77 @@
             
             <div class="nav-right">
                 <div class="nav-links" id="navLinks">
-                    <a href="index.html" class="active">Home</a>
+                    <a href="index.html">Home</a>
                     <a href="blogs.html">Blogs</a>
                     <a href="about.html">About us</a>
                 </div>
 
+                <div class="menu-toggle" id="mobileMenuBtn">
                     <span></span>
                     <span></span>
                     <span></span>
                 </div>
-
+            </div>
         </nav>
     </header>
 
 
-    <main>
-        <section class="hero">
-            <div class="container hero-grid">
-                <div>
-                    <p class="eyebrow blur-fade delay-1">Modern blogging made simple</p>
-                    <h1 class ="blur-fade delay-2">Share your ideas in a space that feels polished and inspiring.</h1>
-                    <p class="hero-copy blur-fade delay-3">Create, manage, and showcase your stories with a clean flow designed for readers and writers alike.</p>
-                    <div class="hero-actions">
-                        <a class="btn btn-primary" href="addblog.html">Start Writing</a>
-                        <a class="btn btn-secondary" href="blogs.html">Explore Blogs</a>
-                    </div>
+    <main class="page-shell">
+        <section class="container form-section">
+            <div class="form-card">
+                <div class="form-intro">
+                    <p class="eyebrow">Create a story</p>
+                    <h1>Share Your Story</h1>
+                    <p>Bring your ideas to life with a polished publishing experience.</p>
                 </div>
 
-    <div class="hero-card hero-visual">
-    <img src="/public/bh2.jpg" alt="PostHub illustration" class="hero-image hero-slide">
-    <img src="/public/bh6.jpg" alt="PostHub illustration" class="hero-image hero-slide">
-    <img src="/public/bh5.jpg" alt="PostHub illustration" class="hero-image hero-slide">
-    </div>
+                <form id="blogForm" class="blog-form">
+                    <div class="form-group">
+                        <label for="title">Blog Title</label>
+                        <input type="text" id="title" placeholder="Enter blog title" required>
+                    </div>
 
-            </div>
-        </section>
+                    <div class="form-group">
+                        <label for="author">Author Name</label>
+                        <input type="text" id="author" placeholder="Enter author name" required>
+                    </div>
 
-        <section class="container stats">
-            <div class="stat-card">
-                <strong>24/7</strong>
-                <span>Create anytime</span>
-            </div>
-            <div class="stat-card">
-                <strong>This is </strong>
-                <span>Our PostHub</span>
-            </div>
-            <div class="stat-card">
-                <strong>100%</strong>
-                <span>Easy to explore</span>
-            </div>
-        </section>
+                    <div class="form-group">
+                        <label for="category">Category</label>
+                        <input type="text" id="category" placeholder="Technology" required>
+                    </div>
 
-        <section id="latest" class="content-section container">
-            <div class="section-head">
-                <h2>Latest Blogs</h2>
-                <a href="addblog.html" class="text-link">Write your own</a>
+                    <div class="form-group">
+                        <label for="content">Blog Content</label>
+                        <textarea id="content" rows="8" placeholder="Write your blog..." required></textarea>
+                    </div>
+
+                    <p class="form-subtitle">Tell your readers something meaningful, memorable, and worth sharing.</p>
+
+                    <button type="submit" class="btn btn-primary full">Publish Story</button>
+                </form>
             </div>
 
-            <div class="cards" id="blogCards" data-limit="6"></div>
+            <aside class="preview-card">
+                <div class="preview-card__content">
+                    <h3>What makes a great blog?</h3>
+                    <ul>
+                        <li>A clear and engaging title</li>
+                        <li>Helpful structure and flow</li>
+                        <li>A strong closing thought</li>
+                    </ul>
+                </div>
 
-
-<br><br>
-            <button class="action-btn" target="_blank" onclick="window.location.href='blogs.html'">
-    <span class="action-bg" aria-hidden="true">
-        <span class="action-symbol direction-right"></span>
-    </span><br>
-    <span class="action-label">View More</span>
-</button>
-        </section>
-
-        <section class="content-section container spotlight">
-            <div>
-                <p class="eyebrow">Built for momentum</p>
-                <h2>Your writing journey deserves a cleaner first impression.</h2>
-                <p>Whether you are sharing a tutorial, a personal story, or a quick update, PostHub gives your content a strong and modern presence.</p>
-            </div>
-
-            <div class="mini-panel">
-                <h3>Quick tips</h3>
-                <ul>
-                    <li>Keep titles clear and exciting</li>
-                    <li>Write in short, readable sections</li>
-                    <li>End with a strong invite</li>
-                </ul>
-            </div>
+                <div class="preview-tip">
+                    <p class="preview-tip__eyebrow">Pro tip</p>
+                    <h4>Start with a hook</h4>
+                    <p>Open with a bold idea or surprising insight to pull readers in from the first line.</p>
+                </div>
+            </aside>
         </section>
     </main>
 
-    <footer class="footer">
+     <footer class="footer">
 <!-- From Uiverse.io by wilsondesouza -->
  <ul class="social-links">
   <li class="social-item">
@@ -149,7 +132,7 @@
     <div class="social-label">Instagram</div>
   </li>
 </ul><br>
-<p><strong>© 2026 PostHub | Built with CodoMax</strong></p>
+<p><strong>© 2026 BlogHub | Built with CodoMax</strong></p>
 
     </footer>
 

@@ -3,103 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PostHub | Home</title>
+    <title>PostHub | All Blogs</title>
     <link rel="stylesheet" href="/public/css/style.css">
 </head>
 <body>
-        <header class="topbar">
+    <header class="topbar">
         <nav class="navbar container">
             <a href="index.html" class="logo">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
                 PostHub
             </a>
-            
+
             <div class="nav-right">
                 <div class="nav-links" id="navLinks">
-                    <a href="index.html" class="active">Home</a>
-                    <a href="blogs.html">Blogs</a>
+                    <a href="index.html">Home</a>
+                    <a href="blogs.html" class="active">All Blogs</a>
                     <a href="about.html">About us</a>
                 </div>
 
+                <div class="menu-toggle" id="mobileMenuBtn">
                     <span></span>
                     <span></span>
                     <span></span>
                 </div>
-
+            </div>
         </nav>
     </header>
 
-
-    <main>
-        <section class="hero">
-            <div class="container hero-grid">
-                <div>
-                    <p class="eyebrow blur-fade delay-1">Modern blogging made simple</p>
-                    <h1 class ="blur-fade delay-2">Share your ideas in a space that feels polished and inspiring.</h1>
-                    <p class="hero-copy blur-fade delay-3">Create, manage, and showcase your stories with a clean flow designed for readers and writers alike.</p>
-                    <div class="hero-actions">
-                        <a class="btn btn-primary" href="addblog.html">Start Writing</a>
-                        <a class="btn btn-secondary" href="blogs.html">Explore Blogs</a>
-                    </div>
-                </div>
-
-    <div class="hero-card hero-visual">
-    <img src="/public/bh2.jpg" alt="PostHub illustration" class="hero-image hero-slide">
-    <img src="/public/bh6.jpg" alt="PostHub illustration" class="hero-image hero-slide">
-    <img src="/public/bh5.jpg" alt="PostHub illustration" class="hero-image hero-slide">
-    </div>
-
-            </div>
-        </section>
-
-        <section class="container stats">
-            <div class="stat-card">
-                <strong>24/7</strong>
-                <span>Create anytime</span>
-            </div>
-            <div class="stat-card">
-                <strong>This is </strong>
-                <span>Our PostHub</span>
-            </div>
-            <div class="stat-card">
-                <strong>100%</strong>
-                <span>Easy to explore</span>
-            </div>
-        </section>
-
-        <section id="latest" class="content-section container">
+    <main class="page-shell">
+        <section class="content-section container">
             <div class="section-head">
-                <h2>Latest Blogs</h2>
+                <h2>All Blogs</h2>
                 <a href="addblog.html" class="text-link">Write your own</a>
             </div>
 
-            <div class="cards" id="blogCards" data-limit="6"></div>
-
-
-<br><br>
-            <button class="action-btn" target="_blank" onclick="window.location.href='blogs.html'">
-    <span class="action-bg" aria-hidden="true">
-        <span class="action-symbol direction-right"></span>
-    </span><br>
-    <span class="action-label">View More</span>
-</button>
-        </section>
-
-        <section class="content-section container spotlight">
-            <div>
-                <p class="eyebrow">Built for momentum</p>
-                <h2>Your writing journey deserves a cleaner first impression.</h2>
-                <p>Whether you are sharing a tutorial, a personal story, or a quick update, PostHub gives your content a strong and modern presence.</p>
-            </div>
-
-            <div class="mini-panel">
-                <h3>Quick tips</h3>
-                <ul>
-                    <li>Keep titles clear and exciting</li>
-                    <li>Write in short, readable sections</li>
-                    <li>End with a strong invite</li>
-                </ul>
-            </div>
+            <div class="cards" id="allBlogCards"></div>
         </section>
     </main>
 
