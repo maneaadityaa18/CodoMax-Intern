@@ -1,10 +1,17 @@
+const helmet = require("helmet");
+const cors = require("cors");
 const express = require("express");
 const path = require("path");
 const mongoose = require('mongoose');
 const Blog = require('./models/blog');
 
 const app = express();
-const PORT = 3000;
+
+app.use(helmet({
+  contentSecurityPolicy: false
+}));
+
+app.use(cors());
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -117,8 +124,10 @@ mongoose.connect(MONGODB_URI)
             console.error('Error initializing first blog:', err.message);
         }
 
+        const PORT = process.env.PORT || 3000;
+
         app.listen(PORT, () => {
-            console.log('MongoDB Connected  Server running on http://localhost:3000');
+            console.log(`Server running on port ${PORT}`);
         });
     })
     .catch(err => {
