@@ -6,32 +6,26 @@ const Blog = require('./models/blog');
 const app = express();
 const PORT = 3000;
 
-// Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Serve static files from the project root and public folder
 app.use("/public", express.static(path.join(__dirname, "public")));
 app.use("/css", express.static(path.join(__dirname, "public", "css")));
 app.use("/js", express.static(path.join(__dirname, "public", "js")));
 app.use(express.static(path.join(__dirname)));
 
-// Health check
 app.get('/api/health', (req, res) => {
     res.json({ status: 'ok', message: 'Blog API is running' });
 });
 
-// Home Page
 app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, "index.html"));
 });
 
-// Add Blog Page
 app.get("/add-blog", (req, res) => {
     res.sendFile(path.join(__dirname, "addblog.html"));
 });
 
-// API: Get a single blog (JSON)
 app.get('/api/blogs/:id', (req, res) => {
     Blog.findById(req.params.id)
         .then(blog => {
@@ -41,7 +35,6 @@ app.get('/api/blogs/:id', (req, res) => {
         .catch(err => res.status(500).json({ error: 'Failed to fetch blog', details: err.message }));
 });
 
-// API: Get all blogs (JSON)
 app.get('/api/blogs', (req, res) => {
     const limit = parseInt(req.query.limit, 10);
     const query = Blog.find().sort({ createdAt: -1 });
@@ -54,7 +47,6 @@ app.get('/api/blogs', (req, res) => {
         .catch(err => res.status(500).json({ error: 'Failed to fetch blogs', details: err.message }));
 });
 
-// API: Create a new blog (JSON)
 app.post('/api/blogs', (req, res) => {
     const { title, author, category, content } = req.body;
 
@@ -67,7 +59,6 @@ app.post('/api/blogs', (req, res) => {
         .catch(err => res.status(400).json({ error: 'Failed to create blog', details: err.message }));
 });
 
-// API: Update a blog (JSON)
 app.put('/api/blogs/:id', (req, res) => {
     const { title, author, category, content } = req.body;
 
@@ -79,7 +70,6 @@ app.put('/api/blogs/:id', (req, res) => {
         .catch(err => res.status(400).json({ error: 'Failed to update blog', details: err.message }));
 });
 
-// API: Delete a blog (JSON)
 app.delete('/api/blogs/:id', (req, res) => {
     Blog.findByIdAndDelete(req.params.id)
         .then(blog => {
@@ -109,12 +99,10 @@ app.post("/blogs", (req, res) => {
 
 });
 
-// Connect to MongoDB and start server
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/codomax_blog';
 
 mongoose.connect(MONGODB_URI)
     .then(async () => {
-        // Create initial blog if none exists
         try {
             const count = await Blog.countDocuments();
             if (count === 0) {

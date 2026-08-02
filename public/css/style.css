@@ -1,7 +1,7 @@
 :root {
     --primary: #243238;
     --primary-dark: #162126;
-    --accent: #5c7c78;
+    --accent: #0dad9b;
     --accent-strong: #47625f;
     --text: #243238;
     --muted: #5f6f7a;
@@ -23,7 +23,13 @@ body {
     font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: var(--text);
     background: linear-gradient(135deg, #f8f4ee 0%, #eef3f0 100%);
-    line-height: 1.5;
+    line-height: 1.2;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+main{
+    flex: 1;
 }
 
 
@@ -43,6 +49,7 @@ a {
 .container {
     width: min(1100px, 92%);
     margin: 0 auto;
+    flex: 1;
 }
 
 .topbar {
@@ -157,9 +164,6 @@ h1 {
     color: var(--muted);
     max-width: 650px;
 }
-/* ===========================================
-   Blur Fade Animation
-=========================================== */
 
 .blur-fade {
     opacity: 0;
@@ -515,9 +519,7 @@ button:hover .action-label {
 }
 
 .modal-box {
-    /* Modal box width: min(90vw, 720px); */
     width: min(90vw, 720px);
-    /* Modal box height: min(80vh, 620px); */
     max-height: min(80vh, 620px);
     overflow-y: auto;
     background: #ffffff;
@@ -716,16 +718,23 @@ textarea {
 }
 
 .footer {
-    padding: 1.5rem 0 2.5rem;
+    padding: 50px 0;
     text-align: center;
     color: var(--muted);
     background: transparent;
+    margin-top: auto;
+}
+.footer .social-links {
+    margin-bottom: 0.4rem;
+}
+.footer p {
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.6;
 }
 .footer-content{
     display:flex;
     flex-direction:column;
-    align-items:center;
-    justify-content:center;
     gap:12px;
 }
 
@@ -845,8 +854,9 @@ textarea {
   top: -30px;
   left: 50%;
   transform: translateX(-50%);
+  margin-top: 50px;
   color: #fff;
-  padding: 6px 10px;
+  padding: 50px;
   border-radius: 5px;
   opacity: 0;
   visibility: hidden;
@@ -859,8 +869,11 @@ textarea {
   visibility: invisible;
   top: -50px;
 }
-.footer p { 
-    font-weight: light;
+.footer p {
+    margin-bottom: 20px;
+    font-weight: 300;
+    text-align: center;
+    color: #4d4d4d;
 }
 .social-links .social-item a {
   position: relative;
