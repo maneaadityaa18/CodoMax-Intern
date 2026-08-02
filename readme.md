@@ -1,158 +1,176 @@
-## PostHub — Full-Stack Blogging App
+# PostHub — Full-Stack Blogging Platform
 
-A simple blog platform built with Node.js, Express, MongoDB, and vanilla HTML/CSS/JavaScript. It includes a modern landing page, blog list, create/edit form, and full CRUD support via a REST API.
+A modern full-stack blogging platform built using **Node.js, Express.js, MongoDB Atlas, and Vanilla JavaScript**. Users can create, edit, delete, and explore blog posts through a clean, responsive interface powered by a RESTful API.
 
----
+## Live Demo
 
-## Key Features
-
-- Home page with latest blog cards
-- All blogs page for full blog listing
-- Add blog page with publish form
-- Edit blog support via `editId` query parameter
-- Delete blog from card action menu
-- Read More modal for full post content
-- Toast notifications for operations
-- Responsive UI with modern card layout
-- Inline SVG favicon support
+[https://posthub-4ah7.onrender.com/](https://posthub-4ah7.onrender.com/)
 
 ---
 
-## Tech Stack
+# Features
 
-- Node.js / Express
-- MongoDB / Mongoose
-- Helmet for security headers
-- CORS support
-- Vanilla JS frontend
-- CSS styling in style.css
-
----
-
-## Project Structure
-
-- server.js — Express server, page routes, REST API, MongoDB connection, initial seeding
-- package.json — project scripts and dependencies
-- blog.js — Mongoose schema for blog posts
-- style.css — site styling
-- scirpt.js — frontend logic for fetching, rendering, modal, edit/delete, toast, animations
-- index.html — home page
-- blogs.html — all blogs page
-- addblog.html — create/edit blog page
-- about.html — about page
+* Modern landing page
+* Create new blog posts
+* Read full blogs in a modal
+* Edit existing blogs
+* Delete blogs
+* Categorized blog cards
+* Latest blogs section
+* Toast notifications
+* Responsive user interface
+* Helmet security middleware
+* CORS enabled
+* MongoDB Atlas cloud database
+* Deployed on Render
 
 ---
 
-## Setup
+# Tech Stack
 
-1. Install Node.js
-2. Install MongoDB and ensure it is running
-3. From project root:
+### Frontend
+
+* HTML5
+* CSS3
+* Vanilla JavaScript
+
+### Backend
+
+* Node.js
+* Express.js
+
+### Database
+
+* MongoDB Atlas
+* Mongoose
+
+### Deployment
+
+* Render
+
+### Other Packages
+
+* Helmet
+* CORS
+
+---
+
+# Installation
+
+Clone the repository
+
+```bash
+git clone https://github.com/maneaadityaa18/CodoMax-Intern.git
+```
+
+Move into the project
+
+```bash
+cd CodoMax-Intern
+```
+
+Install dependencies
 
 ```bash
 npm install
 ```
 
----
-
-## Run Locally
+Start the server
 
 ```bash
 npm start
 ```
 
-Default server: `http://localhost:3000`
+The application runs at:
+
+```text
+http://localhost:3000
+```
 
 ---
 
-## Environment
+# Environment Variables
 
-- `MONGODB_URI` — optional MongoDB connection string
-- Default fallback: `mongodb://127.0.0.1:27017/codomax_blog`
+Create a `.env` file and add:
 
----
+```env
+MONGODB_URI=your_mongodb_connection_string
+PORT=3000
+```
 
-## Server Routes
-
-- `GET /` — serve index.html
-- `GET /add-blog` — serve addblog.html
-- `GET /blogs` and `GET /blogs.html` — serve blogs.html
-- `GET /api/health` — health check
-- `GET /api/blogs` — fetch all blogs, supports query `?limit=NUMBER`
-- `GET /api/blogs/:id` — fetch a single blog
-- `POST /api/blogs` — create a new blog
-- `PUT /api/blogs/:id` — update a blog
-- `DELETE /api/blogs/:id` — delete a blog
+If `MONGODB_URI` is not provided, the project uses a local MongoDB instance.
 
 ---
 
-## Blog Schema
+# API Endpoints
 
-blog.js defines:
+| Method | Endpoint         | Description         |
+| ------ | ---------------- | ------------------- |
+| GET    | `/api/health`    | Health check        |
+| GET    | `/api/blogs`     | Fetch all blogs     |
+| GET    | `/api/blogs/:id` | Fetch a single blog |
+| POST   | `/api/blogs`     | Create a new blog   |
+| PUT    | `/api/blogs/:id` | Update a blog       |
+| DELETE | `/api/blogs/:id` | Delete a blog       |
 
-- `title` — required
-- `author` — required
-- `category`
-- `content` — required
-- `createdAt` — defaults to current date/time
+---
+# Frontend Functionality
+
+* Fetches blogs from the REST API
+* Displays latest blogs on the homepage
+* Displays all blogs on the Blogs page
+* Creates new blog posts
+* Updates existing blog posts
+* Deletes blog posts
+* Opens blog content in a Read More modal
+* Displays toast notifications for user actions
+* Dynamically renders blog cards using the Fetch API
 
 ---
 
-## Frontend Behavior
+# Security
 
-- scirpt.js
-  - fetches blogs from `/api/blogs`
-  - renders cards in `#blogCards` and `#allBlogCards`
-  - supports edit and delete actions
-  - opens a modal for `Read More`
-  - handles form submission on addblog.html
-  - connects edit mode via `?editId=<blogId>`
-
-- index.html
-  - hero section
-  - latest blogs preview
-  - view more button links to all blogs
-
-- blogs.html
-  - lists all blogs
-  - includes interactive card menu
-
-- addblog.html
-  - blog creation form
-  - edit mode populates fields from API
+* Helmet middleware for HTTP security headers
+* CORS configuration
+* Server-side validation
+* RESTful API architecture
 
 ---
 
-## Notes
+# Deployment
 
-- The app seeds a default blog post if the database is empty
-- Static assets are served from:
-  - public
-  - `/css`
-  - `/js`
-- package.json includes:
-  - `start` → `node server.js`
+* Backend hosted on Render
+* Database hosted on MongoDB Atlas
 
 ---
 
-## How to Use
+# Future Scope
 
-1. Open `http://localhost:3000`
-2. Publish a new story via `Write your own`
-3. View all blogs at blogs.html
-4. Use card menu to edit or delete posts
-5. Click `Read More` to open the modal
-
----
-
-## Improvements You Can Add
-
-- validation and better error handling on the frontend
-- pagination for blog list
-- user authentication
-- richer blog editor
-- search and filter by category
+* Image upload support for blog posts
+* Mobile-first responsive design improvements
+* User authentication and authorization
+* Rich text editor for blog writing
+* Search and filter by title or category
+* Pagination for large numbers of blog posts
+* Tags and categories management
+* Like, comment, and bookmark functionality
+* User profiles and personal dashboards
+* Social media sharing
+* Email notifications
+* Performance optimization through lazy loading and caching
 
 ---
 
-This README is based on the current project files and routes found in the repository.
+# Author
+
+**Aditya Mane**
+
+GitHub: [https://github.com/maneaadityaa18](https://github.com/maneaadityaa18)
+
+---
+
+# License
+
+This project was developed as part of the **CodoMax Digital Solutions Full Stack Web Development Internship** and is intended for educational and portfolio purposes.
+
+This version is cleaner and closer to what you'll typically see on professional GitHub repositories.
